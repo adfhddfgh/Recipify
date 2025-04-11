@@ -67,3 +67,118 @@ export async function SearchRecipesComplex() {
     return [];
   }
 }
+
+export async function SearchForAllFood() {
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/search?query=apple&offset=0&number=10";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Unable to fetch the data from API");
+    // This is an array from API ends
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("API error", error);
+    return [];
+  }
+}
+
+export async function SearchFoodVideo() {
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/videos/search?query=chicken%20soup&minLength=0&maxLength=999&number=10&includeingredients=chicken&excludeingredients=mustard&offset=0";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Unable to fetch the data from API");
+    // This is an array from API ends
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("API error", error);
+    return [];
+  }
+}
+
+export async function GetARandomFoodJoke() {
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/jokes/random";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Unable to fetch the data from API");
+    // This is an array from API ends
+    const data = await response.json();
+    return data.text;
+  } catch (error) {
+    console.error("API error", error);
+    return [];
+  }
+}
+
+export async function TalkToChatbot() {
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse?text=donut%20recipes&contextId=342938";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Unable to fetch the data from API");
+    // This is an array from API ends
+    const data = await response.json();
+    return data.text;
+  } catch (error) {
+    console.error("API error", error);
+    return [];
+  }
+}
+
+export async function ConversationSuggestions() {
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse/suggest?query=tell&number=10";
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Unable to fetch the data from API");
+    // This is an array from API ends
+    const data = await response.json();
+    return data.suggestions;
+  } catch (error) {
+    console.error("API error", error);
+    return [];
+  }
+}

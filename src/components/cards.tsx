@@ -9,7 +9,7 @@ export const Card = ({ children }: { children: React.ReactNode }) => {
     alignItems: "center",
     backgroundColor: "darkgrey",
     borderRadius: "8px",
-  };
+  }; 
 
   return <div style={cardStyle}>{children}</div>;
 };
