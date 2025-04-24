@@ -1,4 +1,7 @@
+import { Meal, WeeklyMealPlan, DailyMeals, Recipe } from "@/types/meal";
+
 const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+const USERNAME = "toheeb-orelope";
 
 export async function GetRecipeBulks() {
   const url =
@@ -21,27 +24,58 @@ export async function GetRecipeBulks() {
   }
 }
 
-export async function SearchRecipes() {
-  // const fetch = require("node-fetch");
+// export async function SearchRecipes() {
+//   // const fetch = require("node-fetch");
 
-  const url =
-    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&diet=vegetarian&intolerances=gluten&includeIngredients=cheese%2Cnuts&excludeIngredients=eggs&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&addRecipeInstructions=false&addRecipeNutrition=false&maxReadyTime=45&ignorePantry=true&sort=max-used-ingredients&offset=0&number=10";
+//   // const url =
+//   //   "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&diet=vegetarian&intolerances=gluten&includeIngredients=cheese%2Cnuts&excludeIngredients=eggs&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&addRecipeInstructions=false&addRecipeNutrition=false&maxReadyTime=45&ignorePantry=true&sort=max-used-ingredients&offset=0&number=2";
+//   // // const url =
+//   // "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&cuisine=%20african%2C%20chinese%2C%20japanese%2C%20korean%2C%20vietnamese%2C%20thai%2C%20indian%2C%20british%2C%20irish%2C%20french%2C%20italian%2C%20mexican%2C%20spanish%2C%20middle%20eastern%2C%20jewish%2C%20american%2C%20cajun%2C%20southern%2C%20greek%2C%20german%2C%20nordic%2C%20eastern%20european%2C%20caribbean%2C%20latin%20american&diet=vegetarian%2C%20pescetarian%2C%20%20lacto%20vegetarian%2C%20ovo%20vegetarian%2C%20vegan%2C%20paleo%2C%20primal%2C%20%20vegetarian&intolerances=dairy%2C%20egg%2C%20gluten%2C%20peanut%2C%20sesame%2C%20seafood%2C%20shellfish%2C%20soy%2C%20sulfite%2C%20tree%20nut%2C%20wheat&includeIngredients=cheese%2Cnuts&excludeIngredients=eggs&type=main%20course%2C%20side%20dish%2C%20dessert%2C%20appetizer%2C%20salad%2C%20bread%2C%20breakfast%2C%20soup%2C%20beverage%2C%20sauce%2C%20drink&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100";
+//   const url =
+//     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&cuisine=african,italian,mexican,french&diet=vegetarian&intolerances=gluten,dairy&includeIngredients=cheese,nuts&excludeIngredients=eggs&type=main%20course,side%20dish&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100";
+
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+//       "x-rapidapi-host": API_HOST_NAME,
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url, options);
+//     if (!response.ok) throw new Error("Failed to fetch");
+//     const data = await response.json(); // Parse as JSON
+//     return data.results; // Spoonacular wraps recipes in `results`
+//   } catch (error) {
+//     console.error("API Error:", error);
+//     return []; // Return empty array on error
+//   }
+// }
+
+// services/rapid_api.ts
+export async function SearchRecipes(searchTerm: string = "side salad") {
+  const query = encodeURIComponent(searchTerm);
+
+  const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=${query}&cuisine=african,chinese,japanese,korean,vietnamese,thai,indian,british,irish,french,italian,mexican,spanish,jewish,american,cajun,southern,greek,german,nordic,eastern%20european,caribbean&diet=vegetarian&intolerances=gluten&includeIngredients=cheese,nuts&excludeIngredients=eggs&type=main%20course,side%20dish,dessert,appetizer,salad,bread,breakfast,soup,beverage,sauce,drink&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100`;
+
   const options = {
     method: "GET",
     headers: {
       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
-      "x-rapidapi-host": API_HOST_NAME,
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
     },
   };
 
   try {
     const response = await fetch(url, options);
-    if (!response.ok) throw new Error("Failed to fetch");
-    const data = await response.json(); // Parse as JSON
-    return data.results; // Spoonacular wraps recipes in `results`
+    if (!response.ok)
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    const data = await response.json();
+    return data.results || [];
   } catch (error) {
     console.error("API Error:", error);
-    return []; // Return empty array on error
+    return [];
   }
 }
 
@@ -180,5 +214,86 @@ export async function ConversationSuggestions() {
   } catch (error) {
     console.error("API error", error);
     return [];
+  }
+}
+
+export async function GetRandomRecipes(): Promise<Recipe[]> {
+  const url = new URL(
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1"
+  );
+
+  // Add query parameters
+  url.searchParams.append("tags", "vegetarian,dessert");
+  url.searchParams.append("number", "20");
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    console.log("Making API request to:", url.toString()); // Debug log
+
+    const response = await fetch(url.toString(), options);
+
+    // Check for 401 Unauthorized specifically
+    if (response.status === 401) {
+      throw new Error(
+        "API key is invalid or missing. Please check your RapidAPI key."
+      );
+    }
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("API response:", data); // Debug log
+
+    if (!data.recipes || !Array.isArray(data.recipes)) {
+      throw new Error("Invalid API response format");
+    }
+
+    return data.recipes;
+  } catch (error) {
+    console.error("Error in GetRandomRecipes:", error);
+
+    // Provide more specific error messages
+    if (error instanceof Error && error.message.includes("API key")) {
+      throw new Error("Authentication failed. Please verify your API key.");
+    } else if (
+      error instanceof Error &&
+      error.message.includes("failed with status")
+    ) {
+      throw new Error(`Server error: ${error.message}`);
+    } else {
+      throw new Error(
+        "Failed to fetch random recipes. Please try again later."
+      );
+    }
+  }
+}
+
+export async function GetWeeklyMealPlan(): Promise<WeeklyMealPlan> {
+  const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/mealplanner/${USERNAME}/week/2025-04-21?hash=${process.env.NEXT_PUBLIC_RAPIDAPI_KEY}`;
+  const options = {
+    method: "GET",
+    headers: {
+      // "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error("Failed to fetch weekly plan");
+    const data: WeeklyMealPlan = await response.json();
+    return data;
+  } catch (error) {
+    console.error("API Error:", error);
+    return { days: [] };
   }
 }

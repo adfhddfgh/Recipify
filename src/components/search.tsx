@@ -1,16 +1,47 @@
+"use client";
 import Link from "next/link";
 
+// export const Search = () => {
+//   return (
+//     <div className="flex items-center justify-center gap-4 p-4 bg-purple-50/10 backdrop-blur-sm rounded-lg shadow-md">
+//       <input
+//         type="text"
+//         placeholder="Search for recipes..."
+//         className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-500"
+//       />
+//       <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
+//         Search
+//       </button>
+//     </div>
+//   );
+// };
 
+import React, { useState } from "react";
 
-export const Search = () => {
+interface SearchProps {
+  onSearch: (term: string) => void;
+}
+
+export const Search = ({ onSearch }: SearchProps) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSearch = () => {
+    onSearch(inputValue);
+  };
+
   return (
     <div className="flex items-center justify-center gap-4 p-4 bg-purple-50/10 backdrop-blur-sm rounded-lg shadow-md">
       <input
         type="text"
         placeholder="Search for recipes..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-500"
       />
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
+      <button
+        onClick={handleSearch}
+        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+      >
         Search
       </button>
     </div>

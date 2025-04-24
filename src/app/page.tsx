@@ -1,6 +1,5 @@
 import Image from "next/image";
-import header from "@/components/header"; // Adjust the import path as necessary
-
+import { Header } from "@/components/header";
 
 // import { Card } from "@/components/cards";
 
