@@ -4,6 +4,12 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+//Initiate migration
+// npx prisma migrate dev --name init
+
+// Rerun migration
+// npx prisma migrate dev --name add_ingredient_models
+
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -18,4 +24,206 @@ model Cuisine {
   id          Int    @id @default(autoincrement())
   name        String
   description String
+}
+
+model PantryEssential {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  shelfLife   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Vegetable {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isOrganic   Boolean  @default(false)
+  category    String? // leafy, root, etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Mushroom {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isWild      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Fruit {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isTropical  Boolean  @default(false)
+  isBerry     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NutAndSeed {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isNut       Boolean
+  isSeed      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Dairy {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  category    String? // cheese, milk, yogurt, etc.
+  isVegan     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Meat {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  category    String // poultry, red meat, game, etc.
+  cutType     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Seafood {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  category     String // fish, shellfish, seaweed, etc.
+  isFreshwater Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model HerbAndSpice {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isHerb      Boolean
+  isSpice     Boolean
+  isBlend     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Sweetener {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  isNatural    Boolean  @default(true)
+  isArtificial Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Grain {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  category     String? // whole, refined, etc.
+  isGlutenFree Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Legume {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  isBean      Boolean
+  isLentil    Boolean
+  isPea       Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Pasta {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  shape        String?
+  isFresh      Boolean  @default(false)
+  isGlutenFree Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Bread {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  category     String? // loaf, flatbread, etc.
+  isGlutenFree Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model OilAndFat {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  source      String? // plant, animal, etc.
+  smokePoint  Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Condiment {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  category    String? // sauce, spread, dip, dressing, etc.
+  isSpicy     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SoupStock {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  base        String? // vegetable, chicken, beef, etc.
+  isInstant   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Beverage {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  category    String // alcoholic, non-alcoholic, etc.
+  isAlcoholic Boolean  @default(false)
+  abv         Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BakingGood {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  description  String?
+  category     String? // flour, leavener, chocolate, etc.
+  isGlutenFree Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model DoughWrapper {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  type        String? // pie crust, phyllo, etc.
+  isPreMade   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

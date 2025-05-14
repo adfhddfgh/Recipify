@@ -1,7 +1,11 @@
 import { Meal, WeeklyMealPlan, DailyMeals, Recipe } from "@/types/meal";
 
 const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
-const USERNAME = "toheeb-orelope";
+const USERNAME = "toheeb-orelope0";
+const FIRSTNAME = "Toheeb";
+const LASTNAME = "Husain";
+const EMAIL = "toheeborelope@gmail.com";
+const HASH = "a7840bafa8d07dfb9597ec917326e42d6b504891";
 
 export async function GetRecipeBulks() {
   const url =
@@ -24,15 +28,52 @@ export async function GetRecipeBulks() {
   }
 }
 
-// export async function SearchRecipes() {
-//   // const fetch = require("node-fetch");
+// export async function SearchRecipes(
+//   searchTerm: string = "",
+//   filters: { cuisine?: string } = {}
+// ) {
+//   const url = new URL(
+//     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch"
+//   );
 
-//   // const url =
-//   //   "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&diet=vegetarian&intolerances=gluten&includeIngredients=cheese%2Cnuts&excludeIngredients=eggs&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&addRecipeInstructions=false&addRecipeNutrition=false&maxReadyTime=45&ignorePantry=true&sort=max-used-ingredients&offset=0&number=2";
-//   // // const url =
-//   // "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&cuisine=%20african%2C%20chinese%2C%20japanese%2C%20korean%2C%20vietnamese%2C%20thai%2C%20indian%2C%20british%2C%20irish%2C%20french%2C%20italian%2C%20mexican%2C%20spanish%2C%20middle%20eastern%2C%20jewish%2C%20american%2C%20cajun%2C%20southern%2C%20greek%2C%20german%2C%20nordic%2C%20eastern%20european%2C%20caribbean%2C%20latin%20american&diet=vegetarian%2C%20pescetarian%2C%20%20lacto%20vegetarian%2C%20ovo%20vegetarian%2C%20vegan%2C%20paleo%2C%20primal%2C%20%20vegetarian&intolerances=dairy%2C%20egg%2C%20gluten%2C%20peanut%2C%20sesame%2C%20seafood%2C%20shellfish%2C%20soy%2C%20sulfite%2C%20tree%20nut%2C%20wheat&includeIngredients=cheese%2Cnuts&excludeIngredients=eggs&type=main%20course%2C%20side%20dish%2C%20dessert%2C%20appetizer%2C%20salad%2C%20bread%2C%20breakfast%2C%20soup%2C%20beverage%2C%20sauce%2C%20drink&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100";
-//   const url =
-//     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=side%20salad&cuisine=african,italian,mexican,french&diet=vegetarian&intolerances=gluten,dairy&includeIngredients=cheese,nuts&excludeIngredients=eggs&type=main%20course,side%20dish&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100";
+//   // Only add query parameter if search term is provided
+//   if (searchTerm) {
+//     url.searchParams.append("query", encodeURIComponent(searchTerm));
+//   } else {
+//     // When no search term, get random recipes
+//     url.searchParams.append("sort", "random"); // Sort randomly
+//     url.searchParams.append("addRecipeInformation", "true"); // Ensure we get full recipe info
+//   }
+
+//   // Add cuisine filter if provided, otherwise use your default cuisines
+//   if (filters.cuisine) {
+//     url.searchParams.append("cuisine", filters.cuisine);
+//   } else {
+//     url.searchParams.append(
+//       "cuisine",
+//       "african,chinese,japanese,korean,vietnamese,thai,indian,british,irish,french,italian,mexican,spanish,jewish,american,cajun,southern,greek,german,nordic,eastern european,caribbean"
+//     );
+//   }
+
+//   // Add all your default parameters
+//   url.searchParams.append("diet", "vegetarian");
+//   url.searchParams.append("intolerances", "gluten");
+//   url.searchParams.append("includeIngredients", "cheese,nuts");
+//   url.searchParams.append("excludeIngredients", "eggs");
+//   url.searchParams.append(
+//     "type",
+//     "main course,side dish,dessert,appetizer,salad,bread,breakfast,soup,beverage,sauce,drink"
+//   );
+//   url.searchParams.append("instructionsRequired", "true");
+//   url.searchParams.append("fillIngredients", "true");
+//   url.searchParams.append("addRecipeInformation", "true");
+//   url.searchParams.append("addRecipeInstructions", "true");
+//   url.searchParams.append("addRecipeNutrition", "true");
+//   url.searchParams.append("maxReadyTime", "45");
+//   url.searchParams.append("ignorePantry", "false");
+//   url.searchParams.append("sortDirection", "asc");
+//   url.searchParams.append("offset", "0");
+//   url.searchParams.append("number", "12"); // Reduced from 100 to 12 for better performance
 
 //   const options = {
 //     method: "GET",
@@ -43,21 +84,34 @@ export async function GetRecipeBulks() {
 //   };
 
 //   try {
-//     const response = await fetch(url, options);
-//     if (!response.ok) throw new Error("Failed to fetch");
-//     const data = await response.json(); // Parse as JSON
-//     return data.results; // Spoonacular wraps recipes in `results`
+//     const response = await fetch(url.toString(), options);
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch: ${response.statusText}`);
+//     }
+//     const data = await response.json();
+//     return data.results || [];
 //   } catch (error) {
 //     console.error("API Error:", error);
-//     return []; // Return empty array on error
+//     return [];
 //   }
 // }
+export async function SearchRecipes(
+  searchTerm: string = "",
+  filters: { cuisine?: string } = {}
+) {
+  const url = new URL(
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch"
+  );
 
-// services/rapid_api.ts
-export async function SearchRecipes(searchTerm: string = "side salad") {
-  const query = encodeURIComponent(searchTerm);
+  // Basic parameters
+  url.searchParams.append("query", encodeURIComponent(searchTerm));
+  url.searchParams.append("number", "5"); // Reduced number for chat context
+  url.searchParams.append("addRecipeInformation", "true");
 
-  const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=${query}&cuisine=african,chinese,japanese,korean,vietnamese,thai,indian,british,irish,french,italian,mexican,spanish,jewish,american,cajun,southern,greek,german,nordic,eastern%20european,caribbean&diet=vegetarian&intolerances=gluten&includeIngredients=cheese,nuts&excludeIngredients=eggs&type=main%20course,side%20dish,dessert,appetizer,salad,bread,breakfast,soup,beverage,sauce,drink&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeInstructions=true&addRecipeNutrition=true&maxReadyTime=45&ignorePantry=false&sort=max-used-ingredients&sortDirection=asc&offset=0&number=100`;
+  // Simplified filters for chat context
+  if (filters.cuisine) {
+    url.searchParams.append("cuisine", filters.cuisine);
+  }
 
   const options = {
     method: "GET",
@@ -68,7 +122,7 @@ export async function SearchRecipes(searchTerm: string = "side salad") {
   };
 
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url.toString(), options);
     if (!response.ok)
       throw new Error(`Failed to fetch: ${response.statusText}`);
     const data = await response.json();
@@ -171,46 +225,137 @@ export async function GetARandomFoodJoke() {
   }
 }
 
-export async function TalkToChatbot() {
-  const url =
-    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse?text=donut%20recipes&contextId=342938";
+// export async function TalkToChatbot(inputText: string, contextId: string = "") {
+//   const url = new URL(
+//     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse"
+//   );
+
+//   // Add query parameters
+//   url.searchParams.append("text", encodeURIComponent(inputText));
+//   if (contextId) {
+//     url.searchParams.append("contextId", contextId);
+//   }
+
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+//       "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url.toString(), options);
+//     if (!response.ok)
+//       throw new Error(`API request failed with status ${response.status}`);
+//     const data = await response.json();
+//     return data.text || "I didn't get a response. Please try again.";
+//   } catch (error) {
+//     console.error("API error", error);
+//     return "Sorry, I'm having trouble connecting. Please try again later.";
+//   }
+// }
+
+// export async function ConversationSuggestions() {
+//   const url =
+//     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse/suggest?query=tell&number=10";
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+//       "x-rapidapi-host": API_HOST_NAME,
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url, options);
+//     if (!response.ok) throw new Error("Unable to fetch the data from API");
+//     // This is an array from API ends
+//     const data = await response.json();
+//     return data.suggestions;
+//   } catch (error) {
+//     console.error("API error", error);
+//     return [];
+//   }
+// }
+export async function TalkToChatbot(inputText: string, contextId: string = "") {
+  const url = new URL(
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse"
+  );
+
+  url.searchParams.append("text", encodeURIComponent(inputText));
+  if (contextId) {
+    url.searchParams.append("contextId", contextId);
+  }
+
   const options = {
     method: "GET",
     headers: {
       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
-      "x-rapidapi-host": API_HOST_NAME,
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
     },
   };
 
   try {
-    const response = await fetch(url, options);
-    if (!response.ok) throw new Error("Unable to fetch the data from API");
-    // This is an array from API ends
+    const response = await fetch(url.toString(), options);
+    if (!response.ok) {
+      // Try falling back to recipe search if conversation fails
+      if (response.status === 404 || response.status === 500) {
+        return handleRecipeFallback(inputText);
+      }
+      throw new Error(`API request failed with status ${response.status}`);
+    }
     const data = await response.json();
-    return data.text;
+    return data.text || (await handleRecipeFallback(inputText));
   } catch (error) {
     console.error("API error", error);
-    return [];
+    return await handleRecipeFallback(inputText);
   }
 }
 
-export async function ConversationSuggestions() {
-  const url =
-    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse/suggest?query=tell&number=10";
+async function handleRecipeFallback(query: string): Promise<string> {
+  try {
+    const recipes = await SearchRecipes(query);
+    if (recipes.length > 0) {
+      const recipeList = recipes
+        .slice(0, 3)
+        .map((r: { title: any }) => r.title)
+        .join(", ");
+      return `I found these recipes: ${recipeList}. Would you like details on any?`;
+    }
+    return "I couldn't find recipes matching your query. Could you try different terms?";
+  } catch (error) {
+    console.error("Recipe fallback failed:", error);
+    return "I'm having trouble connecting to recipe data. Please try again later.";
+  }
+}
+
+export async function ConversationSuggestions(
+  query: string = "tell",
+  number: number = 5
+) {
+  const url = new URL(
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/converse/suggest"
+  );
+
+  // Add query parameters
+  url.searchParams.append("query", query);
+  url.searchParams.append("number", number.toString());
+
   const options = {
     method: "GET",
     headers: {
       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
-      "x-rapidapi-host": API_HOST_NAME,
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
     },
   };
 
   try {
-    const response = await fetch(url, options);
-    if (!response.ok) throw new Error("Unable to fetch the data from API");
-    // This is an array from API ends
+    const response = await fetch(url.toString(), options);
+    if (!response.ok)
+      throw new Error(`API request failed with status ${response.status}`);
     const data = await response.json();
-    return data.suggestions;
+    return data.suggestions || [];
   } catch (error) {
     console.error("API error", error);
     return [];
@@ -277,23 +422,277 @@ export async function GetRandomRecipes(): Promise<Recipe[]> {
   }
 }
 
+// export async function GetWeeklyMealPlan(): Promise<WeeklyMealPlan> {
+//   const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/mealplanner/${USERNAME}/week/2025-04-21?hash=${
+//     process.env.NEXT_PUBLIC_RAPIDAPI_HASH || HASH
+//   }`;
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       // "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+//       "x-rapidapi-host": API_HOST_NAME,
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url, options);
+//     if (!response.ok) throw new Error("Failed to fetch weekly plan");
+//     const data: WeeklyMealPlan = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error("API Error:", error);
+//     return { days: [] };
+//   }
+// }
+// export async function GetWeeklyMealPlan(): Promise<WeeklyMealPlan> {
+//   const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+//   // const USERNAME = "toheeb-orelope0";
+//   // const HASH = "a7840bafa8d07dfb9597ec917326e42d6b504891";
+
+//   // Try a fixed date first for debugging
+//   const dateString = "2025-04-21";
+
+//   const url = `https://${API_HOST_NAME}/mealplanner/${USERNAME}/week/${dateString}?hash=${HASH}`;
+
+//   console.log("Making request to:", url); // Debug URL
+
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+//       "x-rapidapi-host": API_HOST_NAME,
+//     },
+//   };
+
+//   try {
+//     const response = await fetch(url, options);
+
+//     if (!response.ok) {
+//       const errorText = await response.text();
+//       console.error("API Error:", {
+//         status: response.status,
+//         statusText: response.statusText,
+//         errorText,
+//       });
+//       return { days: [] };
+//     }
+
+//     const data = await response.json();
+//     console.log("Full API Response:", data); // Debug full response
+
+//     // Ensure data matches WeeklyMealPlan type
+//     if (!data.days || !Array.isArray(data.days)) {
+//       console.warn("Unexpected data structure:", data);
+//       return { days: [] };
+//     }
+
+//     return data;
+//   } catch (error) {
+//     console.error("Network Error:", error);
+//     return { days: [] };
+//   }
+// }
 export async function GetWeeklyMealPlan(): Promise<WeeklyMealPlan> {
-  const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/mealplanner/${USERNAME}/week/2025-04-21?hash=${process.env.NEXT_PUBLIC_RAPIDAPI_KEY}`;
+  const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+  const USERNAME = "toheeb-orelope10";
+  const HASH = "6dc11ee6fda30ffdfaa61868abad747d1c267de8";
+  const dateString = "2020-06-01";
+
+  const url = `https://${API_HOST_NAME}/mealplanner/${USERNAME}/week/${dateString}?hash=${HASH}`;
+
   const options = {
     method: "GET",
     headers: {
-      // "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
       "x-rapidapi-host": API_HOST_NAME,
     },
   };
 
   try {
     const response = await fetch(url, options);
-    if (!response.ok) throw new Error("Failed to fetch weekly plan");
-    const data: WeeklyMealPlan = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Validate response structure
+    if (!data?.days || !Array.isArray(data.days)) {
+      throw new Error("Invalid meal plan data structure");
+    }
+
     return data;
   } catch (error) {
     console.error("API Error:", error);
-    return { days: [] };
+    // Return a properly structured empty response
+    return {
+      days: [],
+    };
   }
+}
+
+export async function ConnectUser() {
+  const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+  // const USERNAME = "your_default_username"; // Define this or ensure env var exists
+
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/users/connect";
+  const options = {
+    method: "POST",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      // Must stringify the body
+      username: process.env.NEXT_PUBLIC_RAPIDAPI_USERNAME || USERNAME,
+      firstName: process.env.NEXT_PUBLIC_FIRST_NAME || FIRSTNAME,
+      lastName: process.env.NEXT_PUBLIC_LAST_NAME || LASTNAME,
+      email: process.env.NEXT_PUBLIC_EMAIL || EMAIL,
+    }),
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    console.log("Connect User Result:", result);
+    return result;
+  } catch (error) {
+    console.error("Error connecting user:", error);
+    throw error;
+  }
+}
+
+export async function GetMealPlan(): Promise<string> {
+  const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+  const url =
+    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?timeFrame=day&targetCalories=2000&diet=vegetarian&exclude=shellfish%2C%20olives";
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.text();
+  } catch (error) {
+    console.error("API Error:", error);
+    return JSON.stringify({ meals: [], nutrients: {} });
+  }
+}
+
+// services/rapid_api.ts
+export async function getRecipeCard(recipeId: number) {
+  const url = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${recipeId}/card?mask=ellipseMask&backgroundImage=background1&backgroundColor=ffffff&fontColor=333333`;
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    return result.url; // this is the image URL
+  } catch (error) {
+    console.error("Error fetching recipe card:", error);
+    return null;
+  }
+}
+
+export async function GetIngredient(
+  searchTerm: string = "common",
+  filters: {
+    number?: number;
+    sort?: string; // Only allow nutrient-based sorting
+    sortDirection?: string;
+    addChildren?: boolean;
+    minProteinPercent?: number;
+    maxProteinPercent?: number;
+    minFatPercent?: number;
+    maxFatPercent?: number;
+    minCarbsPercent?: number;
+    maxCarbsPercent?: number;
+    metaInformation?: boolean;
+    intolerances?: string;
+  } = {}
+) {
+  const API_HOST_NAME = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+  const url = new URL(`https://${API_HOST_NAME}/food/ingredients/search`);
+
+  url.searchParams.append("query", encodeURIComponent(searchTerm));
+  url.searchParams.append("number", String(filters.number || 10));
+  url.searchParams.append("offset", "0");
+
+  // Only add sort if it's a valid nutrient parameter
+  if (filters.sort && isValidNutrientSort(filters.sort)) {
+    url.searchParams.append("sort", filters.sort);
+    if (filters.sortDirection) {
+      url.searchParams.append("sortDirection", filters.sortDirection);
+    }
+  }
+
+  // Add other optional parameters...
+  if (filters.addChildren !== undefined) {
+    url.searchParams.append("addChildren", filters.addChildren.toString());
+  }
+  // Add remaining parameters...
+
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "",
+      "x-rapidapi-host": API_HOST_NAME,
+    },
+  };
+
+  try {
+    const response = await fetch(url.toString(), options);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("API Error Response:", {
+        status: response.status,
+        statusText: response.statusText,
+        url: url.toString(),
+        error: errorText,
+      });
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error("Failed to fetch ingredients:", {
+      error,
+      url: url.toString(),
+      options,
+    });
+    return [];
+  }
+}
+
+// Helper function to validate nutrient sort parameters
+function isValidNutrientSort(sort: string): boolean {
+  const validSorts = [
+    "calories",
+    "protein",
+    "fat",
+    "carbohydrates",
+    // Add other valid nutrient sort options from the API docs
+  ];
+  return validSorts.includes(sort.toLowerCase());
 }

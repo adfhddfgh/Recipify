@@ -46,8 +46,28 @@ export interface DailyMeals {
   items: MealItem[];
 }
 
+// export interface WeeklyMealPlan {
+//   days: DailyMeals[];
+// }
+// In your types/meal.ts file
 export interface WeeklyMealPlan {
-  days: DailyMeals[];
+  days: {
+    nutritionSummary: {
+      nutrients: Nutrient[];
+    };
+    nutritionSummaryBreakfast: {
+      nutrients: Nutrient[];
+    };
+    nutritionSummaryLunch: {
+      nutrients: Nutrient[];
+    };
+    nutritionSummaryDinner: {
+      nutrients: Nutrient[];
+    };
+    date: number;
+    day: string;
+    items: MealItem[];
+  }[];
 }
 
 // types/recipe.ts
@@ -86,4 +106,31 @@ export interface Recipe {
     metaInformation: string[];
   }[];
   instructions: string;
+}
+
+export interface RecipesItems {
+  id: number;
+  title: string;
+  image: string;
+  imageType?: string;
+  usedIngredientCount?: number;
+  missedIngredientCount?: number;
+  readyInMinutes?: number;
+  servings?: number;
+  likes?: number;
+  dishTypes?: string[];
+  diets?: string[];
+  summary?: string;
+  spoonacularScore?: number;
+  sourceUrl?: string;
+  sourceName?: string;
+  analyzedInstructions?: any[]; // Optional: replace `any` with more specific type if needed
+  nutrition?: {
+    nutrients?: {
+      title: string;
+      amount: number;
+      unit: string;
+    }[];
+  };
+  cardUrl?: string; // custom field you'll add after fetching from /{id}/card
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import MobilEMenu from "@/components/MobilEMenu"; // Make sure the path is correct
+import MobilEMenu from "@/components/MobileMenu"; // Make sure the path is correct
 
 export const Header = () => {
   return (
@@ -27,7 +27,10 @@ export const Header = () => {
           placeholder="🔍 Hinted search text"
           className="border px-4 py-2 rounded-full text-sm w-full sm:w-64"
         />
-        <button type="submit" className="bg-black text-white px-5 py-2 rounded-md text-sm">
+        <button
+          type="submit"
+          className="bg-black text-white px-5 py-2 rounded-md text-sm"
+        >
           Login
         </button>
       </form>

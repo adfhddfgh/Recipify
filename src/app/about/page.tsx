@@ -1,92 +1,51 @@
-// "use client";
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import { SearchRecipes } from "../services/rapid_api";
-// import Image from "next/image";
-
-// export default function AboutPage() {
-//   const [recipes, setRecipes] = useState([]);
-
-//   useEffect(() => {
-//     SearchRecipes().then((data) => {
-//       if (data) {
-//         setRecipes(data); // store fetched data in state
-//         console.log(data); // log the data to the console
-//       }
-//     });
-//   }, []);
-
-//   return (
-//     <div>
-//       <h1>About Us</h1>
-//       <p>We are a recipe app that helps you find delicious recipes.</p>
-//       <h2>Discover Delicious Recipes</h2>
-//       {recipes.length === 0 ? (
-//         <p>Loading recipes...</p>
-//       ) : (
-//         recipes.map((recipe: any) => (
-//           <div key={recipe.id} className="recipe-card">
-//             <h2>{recipe.title}</h2>
-//             <Image
-//               src={recipe.image}
-//               alt={recipe.title}
-//               width={200}
-//               height={200}
-//             />
-//             <p>Used Ingredients: {recipe.usedIngredientCount}</p>
-//             <p>Missing Ingredients: {recipe.missedIngredientCount}</p>
-//           </div>
-//         ))
-//       )}
-//     </div>
-//   );
-// }
-
 "use client";
-import React, { useState, useEffect } from "react";
-import { SearchRecipes } from "../services/rapid_api";
 import Image from "next/image";
-import { Search } from "@/components/search";
+import { Header } from "@/components/header";
 
-export default function AboutPage() {
-  const [recipes, setRecipes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("side salad"); // default search
+const cuisines = [
+  { name: "Mexican", image: "/cuisines/mexican.jpg" },
+  { name: "Indian", image: "/cuisines/indian.jpg" },
+  { name: "English", image: "/cuisines/english.jpg" },
+  { name: "African", image: "/cuisines/african.jpg" },
+  { name: "Spanish", image: "/cuisines/spanish.jpg" },
+  { name: "Italian", image: "/cuisines/italian.jpg" },
+  { name: "Asian", image: "/cuisines/asian.jpg" },
+  { name: "Caribbean", image: "/cuisines/caribbean.jpg" },
+  { name: "American", image: "/cuisines/american.jpg" },
+];
 
-  useEffect(() => {
-    SearchRecipes(searchTerm).then((data) => {
-      if (data) {
-        setRecipes(data);
-        console.log(data);
-      }
-    });
-  }, [searchTerm]); // <-- re-fetch when searchTerm changes
-
+export default function CuisinesPage() {
   return (
-    <div>
-      <h1>About Us</h1>
-      <p>We are a recipe app that helps you find delicious recipes.</p>
+    <div className="min-h-screen flex flex-col font-sans bg-white">
+      {/* <Header /> */}
 
-      {/* Include the Search Box */}
-      <Search onSearch={(term) => setSearchTerm(term)} />
+      <main className="flex-1 p-6 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center">
+          Explore Cuisines
+        </h2>
 
-      <h2>Discover Delicious Recipes</h2>
-      {recipes.length === 0 ? (
-        <p>Loading recipes...</p>
-      ) : (
-        recipes.map((recipe: any) => (
-          <div key={recipe.id} className="recipe-card">
-            <h2>{recipe.title}</h2>
-            <Image
-              src={recipe.image}
-              alt={recipe.title}
-              width={200}
-              height={200}
-            />
-            <p>Used Ingredients: {recipe.usedIngredientCount}</p>
-            <p>Missing Ingredients: {recipe.missedIngredientCount}</p>
-          </div>
-        ))
-      )}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {cuisines.map((cuisine) => (
+            <div
+              key={cuisine.name}
+              className="rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-gray-50"
+            >
+              <Image
+                src={cuisine.image}
+                alt={cuisine.name}
+                width={300}
+                height={200}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold capitalize">
+                  {cuisine.name}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }

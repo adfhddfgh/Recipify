@@ -1,1 +1,62 @@
 API is 
+
+username and hash to connect
+Connect User Result: {
+  status: 'success',
+  username: 'toheeb-orelope',
+  spoonacularPassword: 'squidinkpastawithout34candiedorangepeel',
+  hash: '0b049334bbb2b724b9626d9b7a8d9f6da7c1495e'
+}
+Success: {
+  status: 'success',
+  username: 'toheeb-orelope',
+  spoonacularPassword: 'squidinkpastawithout34candiedorangepeel',
+  hash: '0b049334bbb2b724b9626d9b7a8d9f6da7c1495e'
+}
+
+
+Connect User Result: {
+  status: 'success',
+  username: 'toheeb-orelope0',
+  spoonacularPassword: 'potatorollon91flavoredbutter',
+  hash: 'a7840bafa8d07dfb9597ec917326e42d6b504891'
+}
+Success: {
+  status: 'success',
+  username: 'toheeb-orelope0',
+  spoonacularPassword: 'potatorollon91flavoredbutter',
+  hash: 'a7840bafa8d07dfb9597ec917326e42d6b504891'
+}
+
+
+
+
+
+Connect User Result: {
+  status: 'success',
+  username: 'toheeb-orelope1',
+  spoonacularPassword: 'frostedflakeswith60albarino',
+  hash: 'afff5278469b020f1e77d3c9670bdb36dc71ae83'
+}
+Success: {
+  status: 'success',
+  username: 'toheeb-orelope1',
+  spoonacularPassword: 'frostedflakeswith60albarino',
+  hash: 'afff5278469b020f1e77d3c9670bdb36dc71ae83'
+}
+
+
+
+
+Connect User Result: {
+  status: 'success',
+  username: 'toheeb-orelope10',
+  spoonacularPassword: 'matchalatteon52wafer',
+  hash: '6dc11ee6fda30ffdfaa61868abad747d1c267de8'
+}
+Success: {
+  status: 'success',
+  username: 'toheeb-orelope10',
+  spoonacularPassword: 'matchalatteon52wafer',
+  hash: '6dc11ee6fda30ffdfaa61868abad747d1c267de8'
+}

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigations/nav";
 import { Footer } from "@/components/footer";
+import Chatbot from "@/components/chatbot/chatbot";
+// import ChatbotWrapper from "@/components/chatbot/chatbotwrapper";
+import ChatbotWrapper from "@/components/chatbot/chatbotwrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +34,9 @@ export default function RootLayout({
       >
         <Navigation />
         {children}
+
+        <ChatbotWrapper />
+        <Chatbot />
         <Footer />
       </body>
     </html>
